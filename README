@@ -23,7 +23,7 @@ Este é um projeto Flask para gerenciar uma lista de colaboradores, onde você p
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/seu_usuario/seu_repositorio.git
+    git clone https://github.com/Dalmocabral/projeto_escala_dispenca.git
     cd seu_repositorio
     ```
 
