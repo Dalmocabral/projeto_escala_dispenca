@@ -1,0 +1,105 @@
+# Projeto Flask de Gerenciamento de Colaboradores
+
+Este é um projeto Flask para gerenciar uma lista de colaboradores, onde você pode dispensar colaboradores, marcar colaboradores como afastados e copiar a lista formatada para o WhatsApp.
+
+## Funcionalidades
+
+- Listar colaboradores.
+- Dispensar colaboradores com a data e hora atual.
+- Marcar colaboradores como afastados.
+- Copiar a lista de colaboradores (excluindo os afastados) formatada para o WhatsApp.
+
+## Requisitos
+
+- Python 3.6 ou superior
+- Flask
+- Flask-SQLAlchemy
+- Flask-Migrate
+- Flask-Admin
+- Bootstrap 5.3.3
+
+## Instalação
+
+1. Clone o repositório:
+
+    ```bash
+    git clone https://github.com/seu_usuario/seu_repositorio.git
+    cd seu_repositorio
+    ```
+
+2. Crie um ambiente virtual e ative-o:
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows use `venv\Scripts\activate`
+    ```
+
+3. Instale as dependências:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Configure a variável de ambiente `FLASK_APP`:
+
+    ```bash
+    export FLASK_APP=app  # No Windows use `set FLASK_APP=app`
+    ```
+
+5. Inicialize o banco de dados:
+
+    ```bash
+    flask db init
+    flask db migrate -m "Initial migration."
+    flask db upgrade
+    ```
+
+6. Execute o aplicativo:
+
+    ```bash
+    flask run
+    ```
+
+## Estrutura do Projeto
+
+```plaintext
+projeto_escala_dispenca/
+├── app/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── routes.py
+│   ├── templates/
+│   │   └── index.html
+├── migrations/
+├── venv/
+├── config.py
+├── requirements.txt
+└── run.py
+
+## Detalhes de Implementação
+
+- app/init.py: Inicializa o aplicativo Flask e suas extensões.
+- app/models.py: Define o modelo User para a tabela de colaboradores.
+- app/routes.py: Define as rotas para listar colaboradores, dispensar colaboradores e marcar como afastados.
+- templates/index.html: Template HTML para exibir a lista de colaboradores e os botões de ação.
+- config.py: Arquivo de configuração com a URI do banco de dados e a chave secreta.
+
+## Como Usar
+
+1. Listar Colaboradores: Acesse a página inicial para ver a lista de colaboradores.
+2. Dispensar Colaborador: Clique no botão "Dispensa" ao lado do nome do colaborador para atualizar a data e hora de dispensa.
+3. Marcar como Afastado: Marque ou desmarque a caixa de seleção para definir o status de afastamento do colaborador.
+3. Copiar Lista para WhatsApp: Clique no botão "Copiar para WhatsApp" para copiar a lista formatada (excluindo os afastados) para a área de transferência.
+
+## Exemplo de Formatação para WhatsApp
+```bash
+DISPENSA ATUALIZADA 00/00/00
+
+1 - Colaborador 1
+2 - Colaborador 2
+3 - Colaborador 3
+
+```
+
+## Licença
+Este projeto está licenciado sob os termos da licença MIT.

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Colaboradores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+      <br>
+     
+      <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#5f6368"><path d="M480-408ZM156-200 82-457q-4-12 1.5-23.5T101-496l59-20v-224q0-25 17.5-42t42.5-18h150v-120h220v120h150q24.75 0 42.38 17.62Q800-764.75 800-740v225l60 19q11 4 16.5 15t1.5 23l-74 258q-48-5-89.5-29T641-286q-32 36-72.68 61-40.69 25-88.32 25-47.63 0-88.32-25Q351-250 319-286q-32 33-73.5 57T156-200ZM80-40v-60h80q42 0 83-13t77-37q36 24 77 36t83 12q42 0 83-12t77-36q36 24 77 37t83 13h80v60h-80q-41 0-81-10.5T640-81q-39 20-80 30.5T480-40q-39 0-80-10.5T320-81q-39 20-78.8 30.5T159.6-40H80Zm140-495 260-84 260 85v-206H220v205Zm259.5 275q51.5 0 91.5-41t69-76q25 30 55.5 58.5T762-269l51-179-333-108-334 108 52 177q35-19 66.5-47.5T320-377q30 36 69 76.5t90.5 40.5Z"/></svg>      
+          <h5>Dispensa Operadores Rio Brasil </h5>
+      </div>
+      <br>
+        <table class="table table-dark table-striped text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>                  
+                    <th>Afastado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.name }}</td>           
+                    <td>
+                        <form action="{{ url_for('afastamento', user_id=user.id) }}" method="post">
+                            <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {% if user.afastado %}checked{% endif %}>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('dispensa', user_id=user.id) }}" method="post">
+                            <button type="submit" class="btn btn-success">Dispensa</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button id="copyBtn" class="btn btn-primary mb-3 text-center">Copiar para WhatsApp</button>
+    </div>
+    <script>
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const date = new Date();
+            const formattedDate = date.toLocaleDateString('pt-BR');
+            let text = `*DISPENSA ATUALIZADA* ${formattedDate}\n\n`;
+
+            {% for user in users %}
+                {% if not user.afastado %}
+                    text += `*{{ loop.index }}* - _{{ user.name }}_\n`;
+                {% endif %}
+            {% endfor %}
+
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Texto copiado para a área de transferência');
+            }, function(err) {
+                console.error('Erro ao copiar texto: ', err);
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
